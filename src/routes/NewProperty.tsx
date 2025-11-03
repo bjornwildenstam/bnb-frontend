@@ -57,6 +57,11 @@ function Form() {
       </label>
       <br />
 
+      <input
+          placeholder="Image URL (optional)"  {...register('imageUrl')}
+      />
+      <br />
+
       <button>Create</button>
     </form>
   )

@@ -14,6 +14,7 @@ export type Property = {
   pricePerNight: number
   availability: boolean
   user_id?: string
+  imageUrl?: string | null
 }
 
 export type Booking = {

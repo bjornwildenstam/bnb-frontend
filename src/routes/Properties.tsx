@@ -8,6 +8,10 @@ import { Link } from 'react-router-dom'
 import { api } from '@/lib/api'
 import type { Property } from '@/types'
 
+// Standard-bild om en property saknar egen bild-URL
+const PLACEHOLDER_IMAGE =
+  'https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg?auto=compress&cs=tinysrgb&w=800'
+
 export default function PropertiesPage() {
   const [list, setList] = useState<Property[]>([])
   const [loading, setLoading] = useState(true)
@@ -25,14 +29,16 @@ export default function PropertiesPage() {
         if (alive) setLoading(false)
       }
     })()
-    return () => { alive = false }
+    return () => {
+      alive = false
+    }
   }, [])
 
   if (loading) return <p>Laddar…</p>
   if (error) return <p style={{ color: 'crimson' }}>{error}</p>
 
   return (
-    <div style={{ maxWidth: 720 }}>
+    <div style={{ maxWidth: 960, margin: '0 auto' }}>
       <h1>Listings</h1>
 
       <p>
@@ -42,13 +48,28 @@ export default function PropertiesPage() {
       {list.length === 0 ? (
         <p>Inga listings ännu.</p>
       ) : (
-        <ul style={{ display: 'grid', gap: 8, paddingLeft: 18 }}>
+        <ul
+          style={{
+            display: 'grid',
+            gap: 16,
+            padding: 0,
+            listStyle: 'none',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+          }}
+        >
           {list.map((p) => (
-            <li key={p.id}>
-              <strong>{p.name}</strong> — {p.location}{' '}
-              <Link to={`/properties/${p.id}`} style={{ marginLeft: 8 }}>
-                Edit
-              </Link>
+            <li key={p.id} className="property-card">
+              <img
+                src={p.imageUrl || PLACEHOLDER_IMAGE}
+                alt={p.name}
+                className="property-card__image"
+              />
+              <div className="property-card__body">
+                <h3>{p.name}</h3>
+                <p>{p.location}</p>
+                <p>{p.pricePerNight} kr / natt</p>
+                <Link to={`/properties/${p.id}`}>Edit</Link>
+              </div>
             </li>
           ))}
         </ul>

@@ -7,9 +7,10 @@ export const propertySchema = z.object({
   description: z.string().min(10, 'Minst 10 tecken'),
   location: z.string().min(2, 'Ange plats'),
   pricePerNight: z.number().positive('Pris måste vara > 0') ,
-availability: z.boolean().refine(val => typeof val === 'boolean', {
+  availability: z.boolean().refine(val => typeof val === 'boolean', {
   message: 'Availability måste vara true/false',
 }),
+imageUrl: z.string().url().optional().or(z.literal("")),
 })
 
 export const loginSchema = z.object({

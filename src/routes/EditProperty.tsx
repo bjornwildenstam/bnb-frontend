@@ -47,6 +47,7 @@ function FormInner({ id }: { id: string }) {
           location: p.location,
           pricePerNight: Number(p.pricePerNight),
           availability: Boolean(p.availability),
+          imageUrl: p.imageUrl ?? "",   
         })
       } catch (e: any) {
         if (alive) setError(e.message ?? 'Failed to load')
@@ -110,6 +111,10 @@ function FormInner({ id }: { id: string }) {
       <label>
         <input type="checkbox" {...register('availability')} /> Available
       </label>
+      <br />
+
+      <input placeholder="Image URL (optional)" {...register('imageUrl')}
+      />
       <br />
 
       <div style={{ display: 'flex', gap: 8 }}>
