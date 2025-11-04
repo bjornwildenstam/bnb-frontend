@@ -1,6 +1,6 @@
 /** AppLayout.tsx – Grundlayout + topnav; visar login/register eller user + logout. */
 import { Outlet, Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '@/context/AuthContext'   // ✅ RÄTT import
+import { useAuth } from '@/lib/auth'
 
 export default function AppLayout() {
   const { user, loading, signout } = useAuth()

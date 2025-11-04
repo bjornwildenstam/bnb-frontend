@@ -3,10 +3,15 @@
  *  - RequireAuth: wrapper som skyddar sidor (kräver inloggning)
  */
 // src/lib/auth.tsx
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import { Navigate, useLocation } from 'react-router-dom'
 import { api } from './api'
 import type { User } from '@/types'
-import { Navigate, useLocation } from 'react-router-dom'
 
 type AuthCtx = {
   user: User | null
@@ -17,7 +22,7 @@ type AuthCtx = {
   signout: () => Promise<void>
 }
 
-const Ctx = createContext<AuthCtx | null>(null)
+const AuthContext = createContext<AuthCtx | null>(null)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
@@ -54,14 +59,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <Ctx.Provider value={{ user, loading, refresh, signin, signup, signout }}>
+    <AuthContext.Provider
+      value={{ user, loading, refresh, signin, signup, signout }}
+    >
       {children}
-    </Ctx.Provider>
+    </AuthContext.Provider>
   )
 }
 
 export function useAuth() {
-  const ctx = useContext(Ctx)
+  const ctx = useContext(AuthContext)
   if (!ctx) throw new Error('useAuth must be used within <AuthProvider>')
   return ctx
 }

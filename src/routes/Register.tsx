@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signupSchema, type SignupInput } from '@/types/auth'
-import { useAuth } from '@/context/AuthContext'
+import { useAuth } from '@/lib/auth'
 
 export default function RegisterPage() {
   const nav = useNavigate()
