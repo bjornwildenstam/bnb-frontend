@@ -13,7 +13,7 @@ export type Property = {
   location: string
   pricePerNight: number
   availability: boolean
-  user_id?: string
+  userId: string
   imageUrl?: string | null
 }
 

@@ -31,6 +31,7 @@ function FormInner({ id }: { id: string }) {
       location: '',
       pricePerNight: 0,
       availability: true,
+      imageUrl: '',
     },
   })
 
@@ -107,6 +108,15 @@ function FormInner({ id }: { id: string }) {
         <p style={{ color: 'crimson' }}>{errors.pricePerNight.message}</p>
       )}
       <br />
+
+      <input
+  placeholder="Image URL"
+  {...register('imageUrl')}
+/>
+{errors.imageUrl && (
+  <p style={{ color: 'crimson' }}>{errors.imageUrl.message}</p>
+)}
+<br />
 
       <label>
         <input type="checkbox" {...register('availability')} /> Available

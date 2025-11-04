@@ -20,6 +20,7 @@ function Form() {
       location: '',
       pricePerNight: 0,
       availability: true,
+      imageUrl: '',
     },
   })
 
@@ -52,6 +53,15 @@ function Form() {
       {errors.pricePerNight && <p style={{ color: 'crimson' }}>{errors.pricePerNight.message}</p>}
       <br />
 
+      <input
+  placeholder="Image URL"
+  {...register('imageUrl')}
+/>
+{errors.imageUrl && (
+  <p style={{ color: 'crimson' }}>{errors.imageUrl.message}</p>
+)}
+<br />
+
       <label>
         <input type="checkbox" {...register('availability')} /> Available
       </label>
@@ -61,6 +71,8 @@ function Form() {
           placeholder="Image URL (optional)"  {...register('imageUrl')}
       />
       <br />
+
+
 
       <button>Create</button>
     </form>
