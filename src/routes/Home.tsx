@@ -1,34 +1,151 @@
 /** Home.tsx – Enkel startsida: visar senaste properties (read). */
-import { useEffect, useState } from 'react'
-import { api } from '@/lib/api'
-import type { Property } from '@/types'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { api } from "@/lib/api"
+import type { Property } from "@/types"
 
-export default function Home() {
-  const [items, setItems] = useState<Property[]>([])
-  const [error, setError] = useState<string | null>(null)
+// Samma placeholder som på /properties
+const PLACEHOLDER_IMAGE =
+  "https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg?auto=compress&cs=tinysrgb&w=800"
+
+export default function HomePage() {
+  const [popular, setPopular] = useState<Property[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    api.get<Property[]>('/properties')
-      .then(setItems)
-      .catch((e) => setError(e.message))
+    let alive = true
+    ;(async () => {
+      try {
+        const data = await api.get<Property[]>("/properties")
+        if (!alive) return
+        // ta t.ex. de 4 första som "populära"
+        setPopular(data.slice(0, 4))
+      } catch {
+        if (alive) setPopular([])
+      } finally {
+        if (alive) setLoading(false)
+      }
+    })()
+    return () => {
+      alive = false
+    }
   }, [])
 
-  if (error) return <p style={{ color: 'crimson' }}>{error}</p>
-
   return (
-    <section>
-      <h1>Listings</h1>
-      <ul style={{ paddingLeft: 16 }}>
-        {items.map(p => (
-          <li key={p.id} style={{ margin: '8px 0' }}>
-            <strong>{p.name}</strong> — {p.location} — {p.pricePerNight} kr/natt
-            {' '}
-            <Link to={`/properties/${p.id}`}>Edit</Link>
-          </li>
-        ))}
-      </ul>
-      <Link to="/properties/new">Skapa ny</Link>
-    </section>
+    <div className="home-page">
+      {/* HERO */}
+      <section className="home-hero page-card">
+        <div className="home-hero-left">
+          <h1>Glöm vardagsstressen, hitta din nästa vistelse.</h1>
+          <p>
+            Hantera dina egna listings eller hitta inspiration bland alla boenden
+            i systemet. Logga in för att lägga upp, uppdatera och boka.
+          </p>
+
+          <div className="home-hero-actions">
+            <Link to="/register">
+              <button>Kom igång gratis</button>
+            </Link>
+            <Link to="/login">
+              <button className="btn-secondary">Logga in</button>
+            </Link>
+          </div>
+
+          <div className="home-hero-stats">
+            <div>
+              <strong>80K+</strong>
+              <span>resenärer</span>
+            </div>
+            <div>
+              <strong>1.4K</strong>
+              <span>städer</span>
+            </div>
+            <div>
+              <strong>24/7</strong>
+              <span>hantera dina listings</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="home-hero-right">
+          <div className="home-hero-image-wrapper">
+            <img
+              src={PLACEHOLDER_IMAGE}
+              alt="Exempelboende"
+              className="home-hero-image"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* “Sök”-bar (fejk, mest design) */}
+      <section className="home-search page-card">
+        <div className="home-search-fields">
+          <div className="home-search-field">
+            <span className="home-search-label">Var</span>
+            <span className="home-search-placeholder">Sök destinationer</span>
+          </div>
+          <div className="home-search-field">
+            <span className="home-search-label">Checka in</span>
+            <span className="home-search-placeholder">Lägg till datum</span>
+          </div>
+          <div className="home-search-field">
+            <span className="home-search-label">Checka ut</span>
+            <span className="home-search-placeholder">Lägg till datum</span>
+          </div>
+          <div className="home-search-field">
+            <span className="home-search-label">Gäster</span>
+            <span className="home-search-placeholder">Lägg till gäster</span>
+          </div>
+        </div>
+        <button className="home-search-button">Sök</button>
+      </section>
+
+      {/* POPULÄRA BOENDEN */}
+      <section className="home-popular">
+        <div className="home-section-header">
+          <h2>Populära boenden just nu</h2>
+          <Link to="/properties" className="btn-link">
+            Visa alla listings →
+          </Link>
+        </div>
+
+        {loading ? (
+          <p>Laddar boenden…</p>
+        ) : popular.length === 0 ? (
+          <p>Inga boenden ännu. Logga in och skapa din första listing!</p>
+        ) : (
+          <ul className="property-grid">
+            {popular.map((p) => {
+              const img = (p as any).imageUrl || PLACEHOLDER_IMAGE
+              return (
+                <li key={p.id} className="property-card">
+                  <img
+                    src={img}
+                    alt={p.name}
+                    className="property-card__image"
+                  />
+                  <div className="property-card__body">
+                    <div className="property-card__title-line">
+                      <h3>{p.name}</h3>
+                      <span className="property-card__price">
+                        {p.pricePerNight} kr / natt
+                      </span>
+                    </div>
+                    <p className="property-card__location">{p.location}</p>
+                    <div className="property-card__footer">
+                      <span className="property-card__tag">Gästfavorit</span>
+                      <Link to={`/properties/${p.id}`} className="btn-link">
+                        Visa mer
+                      </Link>
+                    </div>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+        )}
+      </section>
+    </div>
   )
 }

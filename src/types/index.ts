@@ -19,10 +19,16 @@ export type Property = {
 
 export type Booking = {
   id: string
-  createdAt: string
-  checkInDate: string
+  userId: string
+  propertyId: string
+  checkInDate: string  
   checkOutDate: string
   totalPrice: number
-  user_id: string
-  property_id: string
+  createdAt: string
+  property?: {
+    id: string
+    name: string
+    location: string
+    pricePerNight: number
+  }
 }

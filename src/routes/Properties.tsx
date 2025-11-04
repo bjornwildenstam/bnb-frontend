@@ -8,13 +8,11 @@ import { api } from '@/lib/api'
 import type { Property } from '@/types'
 import { useAuth } from '@/lib/auth'
 
-// Standard-bild om en property saknar egen bild-URL
 const PLACEHOLDER_IMAGE =
   'https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg?auto=compress&cs=tinysrgb&w=800'
 
 export default function PropertiesPage() {
   const { user } = useAuth() 
-
   const [list, setList] = useState<Property[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -40,7 +38,7 @@ export default function PropertiesPage() {
   if (error) return <p style={{ color: 'crimson' }}>{error}</p>
 
   return (
-    <div style={{ maxWidth: 960, margin: '0 auto' }}>
+    <div>
       <h1>Listings</h1>
 
       <p>
@@ -74,6 +72,14 @@ export default function PropertiesPage() {
                   <p>{p.location}</p>
                   <p>{p.pricePerNight} kr / natt</p>
 
+                  {/* boka-knapp för alla inloggade */}
+                  {user && (
+                    <Link to={`/bookings/new/${p.id}`} style={{ marginRight: 8 }}>
+                      Book
+                    </Link>
+                  )}
+
+                  {/* edit bara för ägaren */}
                   {canEdit && (
                     <Link to={`/properties/${p.id}`}>
                       Edit

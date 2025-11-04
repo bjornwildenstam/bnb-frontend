@@ -19,7 +19,7 @@ export const setAuthToken = (t: string | null) => {
 }
 
 // Ladda ev. token vid start (så /me inte blir 401 efter refresh)
-(() => {
+;(() => {
   const t = localStorage.getItem('auth_token')
   if (t) authToken = t
 })()
@@ -45,7 +45,10 @@ async function request<T>(path: string, opts: FetchOptions = {}): Promise<T> {
 
   if (!res.ok) {
     let msg = `${res.status} ${res.statusText}`
-    try { const err = await res.json(); msg = (err as any)?.message ?? msg } catch {}
+    try {
+      const err = await res.json()
+      msg = (err as any)?.message ?? msg
+    } catch {}
     throw new Error(msg)
   }
   if (res.status === 204) return undefined as T
@@ -53,21 +56,55 @@ async function request<T>(path: string, opts: FetchOptions = {}): Promise<T> {
 }
 
 export const api = {
+  // --- generella helpers ---
   get:  <T>(p: string) => request<T>(p),
   post: <T>(p: string, json?: unknown) => request<T>(p, { method: 'POST', json }),
   put:  <T>(p: string, json?: unknown) => request<T>(p, { method: 'PUT',  json }),
   del:  <T>(p: string) => request<T>(p, { method: 'DELETE' }),
 
+  // --- auth ---
   signin: async (data: { email: string; password: string }) => {
-    const r = await request<{ token: string }>('/auth/signin', { method: 'POST', json: data })
+    const r = await request<{ token: string }>('/auth/signin', {
+      method: 'POST',
+      json: data,
+    })
     setAuthToken(r.token)
     return r
   },
+
   signup: async (data: { name: string; email: string; password: string }) => {
-    const r = await request<{ token?: string; message?: string }>('/auth/signup', { method: 'POST', json: data })
+    const r = await request<{ token?: string; message?: string }>('/auth/signup', {
+      method: 'POST',
+      json: data,
+    })
     if (r.token) setAuthToken(r.token)
     return r
   },
-  signout: async () => { try { await request('/auth/signout', { method: 'POST' }) } catch {} setAuthToken(null) },
+
+  signout: async () => {
+    try {
+      await request('/auth/signout', { method: 'POST' })
+    } catch {
+      // Ignorera ev. nätverksfel vid signout
+    }
+    setAuthToken(null)
+  },
+
   me: <T>() => request<T>('/auth/me'),
+
+  // --- bookings ---
+  createBooking: (body: {
+    propertyId: string
+    checkInDate: string
+    checkOutDate: string
+  }) =>
+    request('/bookings', {
+      method: 'POST',
+      json: body,
+    }),
+
+  listBookings:  <T>() => request<T>('/bookings'),
 }
+
+  
+
