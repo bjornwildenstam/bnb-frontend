@@ -103,7 +103,7 @@ export default function HomePage() {
     <section className="home-popular">
   <div className="home-section-header">
     <h2>Populära boenden just nu</h2>
-    <Link to="/properties">Visa alla listings →</Link>
+    <Link to="/properties">Visa alla boenden →</Link>
   </div>
 
   {loading ? (

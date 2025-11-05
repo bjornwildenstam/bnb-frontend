@@ -11,8 +11,8 @@ export default function AppLayout() {
   return (
     <>
       <nav style={{ display: 'flex', gap: 12, padding: 12, borderBottom: '1px solid #ddd' }}>
-        <Link to="/">Home</Link>
-        <Link to="/properties">Listings</Link>
+        <Link to="/">Hem</Link>
+        <Link to="/properties">Boenden</Link>
         {user ? (
           <>
             <Link to="/bookings">Mina bokningar</Link>
