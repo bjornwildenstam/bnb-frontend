@@ -4,14 +4,13 @@ import { Link } from "react-router-dom"
 import { api } from "@/lib/api"
 import type { Property } from "@/types"
 
-// Samma placeholder som på /properties
-const PLACEHOLDER_IMAGE =
-  "https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg?auto=compress&cs=tinysrgb&w=800"
+const HERO_IMAGE= "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=1200"
 
 export default function HomePage() {
   const [popular, setPopular] = useState<Property[]>([])
   const [loading, setLoading] = useState(true)
-
+  const heroProperty = popular[0]
+  const heroImage = (heroProperty as any)?.imageUrl
   useEffect(() => {
     let alive = true
     ;(async () => {
@@ -69,11 +68,14 @@ export default function HomePage() {
 
         <div className="home-hero-right">
           <div className="home-hero-image-wrapper">
-            <img
-              src={PLACEHOLDER_IMAGE}
-              alt="Exempelboende"
-              className="home-hero-image"
-            />
+            {heroImage && (
+              <img
+                src={HERO_IMAGE}
+                alt="Exempelboende"
+                className="home-hero-image"
+
+                />
+            )}
           </div>
         </div>
       </section>
@@ -102,50 +104,49 @@ export default function HomePage() {
       </section>
 
       {/* POPULÄRA BOENDEN */}
-      <section className="home-popular">
-        <div className="home-section-header">
-          <h2>Populära boenden just nu</h2>
-          <Link to="/properties" className="btn-link">
-            Visa alla listings →
-          </Link>
-        </div>
+<section className="home-popular">
+  <div className="home-section-header">
+    <h2>Populära boenden just nu</h2>
+    <Link to="/properties">Visa alla listings →</Link>
+  </div>
 
-        {loading ? (
-          <p>Laddar boenden…</p>
-        ) : popular.length === 0 ? (
-          <p>Inga boenden ännu. Logga in och skapa din första listing!</p>
-        ) : (
-          <ul className="property-grid">
-            {popular.map((p) => {
-              const img = (p as any).imageUrl || PLACEHOLDER_IMAGE
-              return (
-                <li key={p.id} className="property-card">
-                  <img
-                    src={img}
-                    alt={p.name}
-                    className="property-card__image"
-                  />
-                  <div className="property-card__body">
-                    <div className="property-card__title-line">
-                      <h3>{p.name}</h3>
-                      <span className="property-card__price">
-                        {p.pricePerNight} kr / natt
-                      </span>
-                    </div>
-                    <p className="property-card__location">{p.location}</p>
-                    <div className="property-card__footer">
-                      <span className="property-card__tag">Gästfavorit</span>
-                      <Link to={`/properties/${p.id}`} className="btn-link">
-                        Visa mer
-                      </Link>
-                    </div>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-        )}
-      </section>
+  {loading ? (
+    <p>Laddar boenden…</p>
+  ) : popular.length === 0 ? (
+    <p>Inga boenden ännu. Logga in och skapa din första listing!</p>
+  ) : (
+    <div className="home-popular-list">
+      {popular.map((p) => {
+        const img = (p as any).imageUrl
+
+        return (
+          <article key={p.id} className="property-card">
+            <img
+              src={img}
+              alt={p.name}
+              className="property-card__image"
+            />
+            <div className="property-card__body">
+              <div className="property-card__title-line">
+                <h3>{p.name}</h3>
+                <span className="property-card__price">
+                  {p.pricePerNight} kr / natt
+                </span>
+              </div>
+              <p className="property-card__location">{p.location}</p>
+              <div className="property-card__footer">
+                <span className="property-card__tag">GÄSTFAVORIT</span>
+                <Link to={`/properties/${p.id}`} className="btn-link">
+                  Visa mer
+                </Link>
+              </div>
+            </div>
+          </article>
+        )
+      })}
+    </div>
+  )}
+</section>
     </div>
   )
 }

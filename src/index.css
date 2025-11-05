@@ -647,6 +647,18 @@ textarea {
   font-size: 1.2rem;
 }
 
+.home-popular-list {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 0.75rem 0 0.5rem;
+}
+
+.home-popular-list .property-card {
+  min-width: 320px;
+  max-width: 360px;
+}
+
 /* Responsivt för mindre skärmar */
 
 @media (max-width: 900px) {
