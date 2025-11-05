@@ -1,5 +1,4 @@
 /** Login.tsx – Inloggningsformulär (cookie-auth via backend). */
-// src/routes/Login.tsx
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'

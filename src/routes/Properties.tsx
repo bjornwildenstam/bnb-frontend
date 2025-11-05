@@ -40,14 +40,14 @@ export default function PropertiesPage() {
   return (
     <div>
         
-      <h1>Listings</h1>
+      <h1>Boenden</h1>
 
       <p>
-        <Link to="/properties/new">+ New listing</Link>
+        <Link to="/properties/new">+ Nytt boende</Link>
       </p>
 
       {list.length === 0 ? (
-        <p>Inga listings ännu.</p>
+        <p>Inga boenden ännu.</p>
       ) : (
         <ul
           style={{

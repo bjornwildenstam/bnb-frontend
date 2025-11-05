@@ -27,22 +27,22 @@ function NewBookingInner() {
 
   return (
     <form className="booking-form" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 400 }}>
-      <h1>Book stay</h1>
+      <h1>Boka boende</h1>
       <p>Property id: {propertyId}</p>
 
       <label>
-        Check in
+        Checka in
         <input type="date" {...register("checkInDate", { required: true })} />
       </label>
       <br />
 
       <label>
-        Check out
+        Checka ut
         <input type="date" {...register("checkOutDate", { required: true })} />
       </label>
       <br />
 
-      <button>Book</button>
+      <button>Boka</button>
     </form>
   )
 }

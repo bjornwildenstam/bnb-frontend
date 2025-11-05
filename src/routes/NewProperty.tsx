@@ -31,7 +31,7 @@ function Form() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 520 }}>
-      <h1>New listing</h1>
+      <h1>Nytt boende</h1>
 
       <input placeholder="Name" {...register('name')} />
       {errors.name && <p style={{ color: 'crimson' }}>{errors.name.message}</p>}
@@ -63,13 +63,13 @@ function Form() {
 <br />
 
       <label>
-        <input type="checkbox" {...register('availability')} /> Available
+        <input type="checkbox" {...register('availability')} /> Tillgängligt
       </label>
       <br />
 
 
 
-      <button>Create</button>
+      <button>Skapa</button>
     </form>
   )
 }

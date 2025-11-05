@@ -1,11 +1,9 @@
 /** api.ts – Minimal fetch-wrapper för Header-JWT (ingen cookie)
  *  - Läser baseURL från VITE_API_URL
  *  - Lagrar JWT i minne (authToken) och skickar den som Authorization: Bearer <token>
- *  - Inga credentials/cookies används
- *  - Kastar fel vid icke-2xx svar
+ *  - Kastar fel vid icke svar
  */
 
-/** api.ts – Header-JWT utan onödiga preflights på GET */
 const BASE_URL = import.meta.env.VITE_API_URL as string
 
 type FetchOptions = RequestInit & { json?: unknown }
@@ -85,7 +83,6 @@ export const api = {
     try {
       await request('/auth/signout', { method: 'POST' })
     } catch {
-      // Ignorera ev. nätverksfel vid signout
     }
     setAuthToken(null)
   },

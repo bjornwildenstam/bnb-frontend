@@ -1,5 +1,4 @@
 /** main.tsx – Bootstrappar appen: Router + AuthProvider + routes. */
-// src/main.tsx
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createHashRouter, RouterProvider } from 'react-router-dom'

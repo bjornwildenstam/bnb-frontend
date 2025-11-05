@@ -66,7 +66,7 @@ function FormInner({ id }: { id: string }) {
     try {
       setSaving(true)
       await api.put(`/properties/${id}`, data)
-      nav('/properties') // ⬅️ tillbaka till listan
+      nav('/properties') 
     } catch (e: any) {
       setError(e.message ?? 'Failed to save')
       setSaving(false)

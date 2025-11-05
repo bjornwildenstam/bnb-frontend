@@ -1,8 +1,3 @@
-/** auth.tsx – Enkel AuthContext som hämtar /auth/me och exponerar user + guards.
- *  - useAuth() ger { user, loading, signin, signup, signout }
- *  - RequireAuth: wrapper som skyddar sidor (kräver inloggning)
- */
-// src/lib/auth.tsx
 import React, {
   createContext,
   useContext,

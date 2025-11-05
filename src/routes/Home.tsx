@@ -33,9 +33,9 @@ export default function HomePage() {
       {/* HERO */}
       <section className="home-hero page-card">
         <div className="home-hero-left">
-          <h1>Glöm vardagsstressen, hitta din nästa vistelse.</h1>
+          <h1>Hitta din nästa vistelse.</h1>
           <p>
-            Hantera dina egna listings eller hitta inspiration bland alla boenden
+            Hantera dina egna boenden eller hitta inspiration bland alla boenden
             i systemet. Logga in för att lägga upp, uppdatera och boka.
           </p>
 
@@ -59,7 +59,7 @@ export default function HomePage() {
             </div>
             <div>
               <strong>24/7</strong>
-              <span>hantera dina listings</span>
+              <span>hantera dina boenden</span>
             </div>
           </div>
         </div>
