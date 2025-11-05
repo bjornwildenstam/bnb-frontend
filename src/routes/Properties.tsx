@@ -39,6 +39,7 @@ export default function PropertiesPage() {
 
   return (
     <div>
+        
       <h1>Listings</h1>
 
       <p>

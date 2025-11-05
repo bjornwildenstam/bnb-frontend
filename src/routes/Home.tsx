@@ -9,8 +9,6 @@ const HERO_IMAGE= "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?
 export default function HomePage() {
   const [popular, setPopular] = useState<Property[]>([])
   const [loading, setLoading] = useState(true)
-  const heroProperty = popular[0]
-  const heroImage = (heroProperty as any)?.imageUrl
   useEffect(() => {
     let alive = true
     ;(async () => {
@@ -68,14 +66,12 @@ export default function HomePage() {
 
         <div className="home-hero-right">
           <div className="home-hero-image-wrapper">
-            {heroImage && (
               <img
                 src={HERO_IMAGE}
                 alt="Exempelboende"
                 className="home-hero-image"
 
                 />
-            )}
           </div>
         </div>
       </section>
@@ -104,7 +100,7 @@ export default function HomePage() {
       </section>
 
       {/* POPULÄRA BOENDEN */}
-<section className="home-popular">
+    <section className="home-popular">
   <div className="home-section-header">
     <h2>Populära boenden just nu</h2>
     <Link to="/properties">Visa alla listings →</Link>
