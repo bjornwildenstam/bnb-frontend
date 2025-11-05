@@ -13,6 +13,7 @@ import NewProperty from './routes/NewProperty'
 import EditProperty from './routes/EditProperty'
 import BookingsPage from "./routes/Bookings"
 import NewBookingPage from "./routes/NewBooking"
+import MyBookingsPage from "@/routes/MyBookings"
 import { AuthProvider } from './lib/auth'
 
 const router = createHashRouter([
@@ -26,7 +27,8 @@ const router = createHashRouter([
       { path: '/properties/new', element: <NewProperty /> },
       { path: '/properties/:id', element: <EditProperty /> },
       { path: '/bookings', element: <BookingsPage/>},
-      { path: '/bookings/new/:propertyId', element: <NewBookingPage/>}
+      { path: '/bookings/new/:propertyId', element: <NewBookingPage/>},
+      { path: '/bookings', element: <MyBookingsPage />} 
     ],
   },
 ])

@@ -15,6 +15,7 @@ export default function AppLayout() {
         <Link to="/properties">Listings</Link>
         {user ? (
           <>
+            <Link to="/bookings">Mina bokningar</Link>
             <span style={{ marginLeft: 'auto' }}>{user.name}</span>
             <button onClick={() => { signout(); nav('/'); }}>Logga ut</button>
           </>
