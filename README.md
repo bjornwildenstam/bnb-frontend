@@ -6,12 +6,7 @@
 - Visar:
   - Listings (lista, detalj, skapa, uppdatera, ta bort)
   - Registrering / inloggning
-  - **Mina bokningar** (hämtas från `/bookings`)
-
-------------------------------------------------------------------------
-# Deployment
-- Frontend: https://bnb-frontend.vercel.app  
-- Backend API: https://bnb-backend.vercel.app  
+  - **Mina bokningar** (hämtas från `/bookings`) 
 
 ------------------------------------------------------------------------
 
