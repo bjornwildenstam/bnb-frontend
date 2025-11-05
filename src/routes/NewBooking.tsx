@@ -26,7 +26,7 @@ function NewBookingInner() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 400 }}>
+    <form className="booking-form" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: 400 }}>
       <h1>Book stay</h1>
       <p>Property id: {propertyId}</p>
 

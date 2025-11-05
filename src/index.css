@@ -289,6 +289,12 @@ a:hover {
   margin: 0;
 }
 
+.booking-form {
+  align-items: center;
+  justify-content: center;
+  
+}
+
 /* Enskilt property-kort */
 
 .property-card {
